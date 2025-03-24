@@ -1,8 +1,13 @@
 import React from 'react'
+import Header from '../components/dashboard/Header'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div className='w-full relative'>
+      <div className="bg-white">
+        <Header />
+      </div>
+    </div>
   )
 }
 

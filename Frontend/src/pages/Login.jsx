@@ -20,7 +20,8 @@ const Login = () => {
     try {
       const res = await axios.post("http://localhost:1000/api/v1/login", loginUserInfo, {withCredentials: true} );
       alert(res.data.success)
-      navigate("/")
+      localStorage.setItem("userLoggedIn", "yes");
+      navigate("/dashboard");
     } catch (error) {
       // alert(error.response.error);
       console.log(error)
