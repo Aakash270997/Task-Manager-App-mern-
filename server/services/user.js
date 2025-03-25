@@ -56,4 +56,13 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { register, login };
+const logout = async (req, res) => {
+  try {
+    res.clearCookie("TMAToken", {httpOnly: true})
+    res.json({ massage: "Logged out" })
+  } catch (error) {
+    return res.status(404).json({ error: "Internal server error!" })
+  }
+}
+
+module.exports = { register, login, logout };

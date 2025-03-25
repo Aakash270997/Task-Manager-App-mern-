@@ -9,9 +9,10 @@ const Header = ({setAddTaskDiv}) => {
 
   const logout = async () => {
     try {
-      const res = await axios.post("http://localhost:1000/api/v2/logout", {}, {withCredentials: true});
-      alert(res.data.message);
-      localStorage.clearItem("userLoggedin");
+      const res = await axios.post("http://localhost:1000/api/v1/logout", {}, { withCredentials: true });
+      console.log(res.data.massage);
+      alert(res.data.massage);
+      localStorage.clear("userLoggedin");
       navigate("/login")
     } catch (error) {
       console.log(error)
