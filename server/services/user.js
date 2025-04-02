@@ -1,4 +1,4 @@
-const user = require("../models/user.js");
+const user = require("../models/user");
 const bcrypt = require("bcryptjs");
 var jwt = require('jsonwebtoken');
 
@@ -39,12 +39,14 @@ const login = async (req, res) => {
       bcrypt.compare(password, checkUsers.password, (err, data)=>{
         if (data) {
           const token = jwt.sign({ id:checkUsers._id, email:checkUsers.email }, process.env.JWT_SECRET, {expiresIn:"30d"});
+          console.log("user: " + token)
           res.cookie("TMAToken", token, {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000,
             secure: process.env.NODE_ENV === "production",
             sameSite: "None",
           });
+          console.log()
           return res.status(200).json({success: "Login Success!"})
         } else {
           return res.status(400).json({ error: "Invalid Credentials"})

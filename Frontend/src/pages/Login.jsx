@@ -18,13 +18,13 @@ const Login = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:1000/api/v1/login", loginUserInfo, {withCredentials: true} );
+      const res = await axios.post("http://localhost:5000/api/auth/login", loginUserInfo, {withCredentials: true} );
       alert(res.data.success)
       localStorage.setItem("userLoggedIn", "yes");
       navigate("/dashboard");
     } catch (error) {
       // alert(error.response.error);
-      console.log(error)
+      console.log(error.response.data.error)
     }
   }
 

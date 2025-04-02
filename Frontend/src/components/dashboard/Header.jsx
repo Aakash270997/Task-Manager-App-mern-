@@ -9,7 +9,7 @@ const Header = ({setAddTaskDiv}) => {
 
   const logout = async () => {
     try {
-      const res = await axios.post("http://localhost:1000/api/v1/logout", {}, { withCredentials: true });
+      const res = await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
       console.log(res.data.massage);
       alert(res.data.massage);
       localStorage.clear("userLoggedin");

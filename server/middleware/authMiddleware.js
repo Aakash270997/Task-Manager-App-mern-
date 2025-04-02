@@ -1,17 +1,22 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const User = require("../models/user");
 
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.TMAToken;
+  
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized: No token provided" });
+  }
 
   try {
-    if (!token) {
-      return res.status(401).json({ error: "new-uesr" });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!decoded || !decoded.id) {
+      return res.status(401).json({ message: "Invalid token payload" });
     }
-    const decoded = jwt.varify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.id);
-
+    
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -19,8 +24,14 @@ const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Invalid token" });
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({ message: "Invalid token" });
+    } else if (error.name === "TokenExpiredError") {
+      return res.status(401).json({ message: "Token expired" });
+    } else {
+      return res.status(500).json({ message: "Internal server error" });
+    }
   }
-}
+};
 
 module.exports = authMiddleware;

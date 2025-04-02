@@ -13,7 +13,7 @@ const App = () => {
     } else {
       navigate("/login")
     }
-  })
+  },[])
 
   return (
     <>

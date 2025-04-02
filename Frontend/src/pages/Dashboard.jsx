@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Header from '../components/dashboard/Header'
 import AddTask from '../components/dashboard/AddTask'
+import Todos from '../components/Todos'
 
 const Dashboard = () => {
   const [addTaskDiv, setAddTaskDiv] = useState("hidden")
@@ -15,6 +16,7 @@ const Dashboard = () => {
       <div className={`w-full ${addTaskDiv} h-screen fixed top-0 left-0 flex items-center justify-center`}>
         <AddTask setAddTaskDiv={setAddTaskDiv} />
       </div>
+      <Todos />
     </div>
   )
 }

@@ -18,7 +18,7 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:1000/api/v1/register", registerUserInfo);
+      const res = await axios.post("http://localhost:5000/api/auth/register", registerUserInfo);
       alert(res.data.success)
       navigate("/login")
     } catch (error) {
