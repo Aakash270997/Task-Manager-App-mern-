@@ -5,12 +5,16 @@ exports.createTodo = async (req, res) => {
     const { title, description, priority, taskStatus } = req.body;
     console.log(title, description, priority, taskStatus);
     const todo = new Todo({ user: req.user._id, title, description, priority, taskStatus });
+    console.log("todo: " +todo)
     await todo.save();
     req.user.todos.push(todo._id);
+    console.log("push data")
     await req.user.save();
     res.status(201).json({ message: "Todo created", todo });
+    console.log("create todo")
   } catch (error) {
     res.status(500).json({ error: "Server error" });
+    console.log("not work")
   }
 };
 

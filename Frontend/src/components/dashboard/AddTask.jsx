@@ -6,7 +6,7 @@ const AddTask = ({ setAddTaskDiv }) => {
     title: "",
     description: "",
     priority: "low",  // FIXED
-    taskStatus: "todo"
+    taskStatus: "Todo"
   });
 
   const selectDetails = (e) => {
@@ -21,6 +21,14 @@ const AddTask = ({ setAddTaskDiv }) => {
     try {
       const res = await axios.post("http://localhost:5000/api/todo/create", tasksDetail, { withCredentials: true });
       console.log("Response:", res.data);
+      // alertMsg(res.data.message)
+      setTasksDetail({
+        title:"",
+        description: "",
+        priority: "low",
+        taskStatus: "Todo"
+      });
+      setAddTaskDiv("hidden")
     } catch (error) {
       console.error("Error:", error.response.data);
       alert(error.response.data.error);

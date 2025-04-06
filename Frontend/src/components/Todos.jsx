@@ -22,18 +22,18 @@ const Todos = () => {
         
       })
       .catch((error) => console.error("Error fetching todos:", error));
-    }, []);
-    // console.log(todosList);
+    },[]);
+    console.log(todosList);
   
   return (
     <div>
       <ul className='max-w-6/12 m-auto mt-7'>
-        {todosList.map(item=>(
-          <li className='gap-2.5 border border-amber-200 mb-3 bg-blue-300'>
+        {/* {todosList.map(item => (
+          <li key={item._id} className='gap-2.5 border border-amber-200 mb-3 bg-blue-300'>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
           </li>
-        ))}
+        ))} */}
       </ul>
     </div>
   )
