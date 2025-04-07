@@ -1,8 +1,13 @@
 import React from 'react'
+import TaskCart from './TaskCart'
 
-const Complate = () => {
+const Complate = ({task}) => {
   return (
-    <div>Complate</div>
+    <div className='flex flex-col gap-2'>
+      {task.map((item, i) => (
+        <TaskCart key={i} item={item} />
+      ))}
+    </div>
   )
 }
 

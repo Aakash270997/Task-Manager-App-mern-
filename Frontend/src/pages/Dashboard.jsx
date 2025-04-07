@@ -6,12 +6,13 @@ import InProgress from '../components/dashboard/InProgress';
 import Todo from '../components/dashboard/Todo';
 import Complate from '../components/dashboard/Complate';
 import axios from 'axios';
-// import AlertData from '../components/AlertData';
 
 const Dashboard = () => {
   const [addTaskDiv, setAddTaskDiv] = useState("hidden");
   const [todoTasks, setTodoTasks] = useState([]);
-  const [todoListData, settodoListData] = useState([]);  // Initialize as an empty array
+  const [todoListData, settodoListData] = useState([]);
+  const [progressListData, setProgressListData] = useState([]);
+  const [complateListData, setComplateListData] = useState([]);
   const [error, setError] = useState('');  // Optional: Handle errors
 
   useEffect(() => {
@@ -30,7 +31,11 @@ const Dashboard = () => {
 
   useEffect(() => {
     const filterTodo = todoTasks.filter((task) => task.taskStatus === "Todo");
+    const filterProgress = todoTasks.filter((task) => task.taskStatus === "InProgress");
+    const filterComplate = todoTasks.filter((task) => task.taskStatus === "Completed");
     settodoListData(filterTodo);
+    setProgressListData(filterProgress);
+    setComplateListData(filterComplate);
   }, [todoTasks]);
 
   console.log("todoListData", todoListData);
@@ -51,13 +56,13 @@ const Dashboard = () => {
         <div className="w-1/3">
           <StickTitle title={"In Progress"} />
           <div className="pt-2">
-            <InProgress />
+            {progressListData.length > 0 ? <InProgress task={progressListData} /> : <p>No tasks available</p>}
           </div>
         </div>
         <div className="w-1/3">
           <StickTitle title={"Complate"} />
           <div className="pt-2">
-            <Complate />
+            {complateListData.length > 0 ? <Complate task={complateListData} /> : <p>No tasks available</p>}
           </div>
         </div>
       </div>
