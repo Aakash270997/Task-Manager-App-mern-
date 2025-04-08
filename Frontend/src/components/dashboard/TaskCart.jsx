@@ -7,7 +7,7 @@ const TaskCart = ({ item }) => {
     <button className='bg-white rounded px-4 w-full transition-all duration-300 p-2.5'>
       <div className="flex item-center justify-between">
         <h3>{item.title}</h3>
-        <div className="txt-sm text-green-500 bg-green-100 px-2 rounded-full">
+        <div className={`txt-sm ${item.priority==="low" ? "text-green-500 bg-green-100" : item.priority === "medium" ? "text-yellow-500 bg-yellow-100" : "text-red-500 bg-red-100"} px-2 rounded-full`}>
           <p>{item.priority}</p>  {/* Assuming priority is low for all tasks */}
         </div>
       </div>

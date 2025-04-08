@@ -6,9 +6,11 @@ import InProgress from '../components/dashboard/InProgress';
 import Todo from '../components/dashboard/Todo';
 import Complate from '../components/dashboard/Complate';
 import axios from 'axios';
+import EditTaskDiv from '../components/dashboard/EditTaskDiv';
 
 const Dashboard = () => {
   const [addTaskDiv, setAddTaskDiv] = useState("hidden");
+  const [editTasks, setEditTasks] = useState("hidden")
   const [todoTasks, setTodoTasks] = useState([]);
   const [todoListData, settodoListData] = useState([]);
   const [progressListData, setProgressListData] = useState([]);
@@ -36,7 +38,7 @@ const Dashboard = () => {
     settodoListData(filterTodo);
     setProgressListData(filterProgress);
     setComplateListData(filterComplate);
-  }, [todoTasks]);
+  }, []);
 
   console.log("todoListData", todoListData);
 
@@ -71,6 +73,11 @@ const Dashboard = () => {
       <div className={`w-full ${addTaskDiv} h-screen fixed top-0 left-0 bg-zinc-800 opacity-85`}></div>
       <div className={`w-full ${addTaskDiv} h-screen fixed top-0 left-0 flex items-center justify-center`}>
         <AddTask setAddTaskDiv={setAddTaskDiv} />
+      </div>
+      {/* Edit tasks */}
+      <div className={`w-full ${editTasks} h-screen fixed top-0 left-0 bg-zinc-800 opacity-85`}></div>
+      <div className={`w-full ${editTasks} h-screen fixed top-0 left-0 flex items-center justify-center`}>
+        <EditTaskDiv setEditTasks={setEditTasks} />
       </div>
       {/* <Todos /> */}
     </div>
