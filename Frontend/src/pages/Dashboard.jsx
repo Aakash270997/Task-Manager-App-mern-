@@ -22,6 +22,7 @@ const Dashboard = () => {
     const fetchTodoTasks = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/todo/all", { withCredentials: true });
+        // console.log(response)
         setTodoTasks(response.data.todos);
       } catch (error) {
         console.log(error);

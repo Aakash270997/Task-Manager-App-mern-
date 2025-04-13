@@ -56,8 +56,8 @@ const EditTaskDiv = ({ setEditTasks, selectedTask }) => {
         </div>
 
         <div className="flex gap-4">
-          <button className='w-full bg-blue-800 py-2 text-white rounded' onClick={addTask}>Save</button>
-          <button className='w-full border py-2 rounded' onClick={() => setEditTasks("hidden")}>Cancel</button>
+          <button className='w-full bg-blue-800 py-2 text-white rounded' onClick={addTask} type='submit'>Save</button>
+          <button className='w-full border py-2 rounded' onClick={() => setEditTasks("hidden")} type='button'>Cancel</button>
         </div>
       </form>
     </div>

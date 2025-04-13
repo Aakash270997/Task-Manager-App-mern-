@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", loginUserInfo, {withCredentials: true} );
-      alert(res.data.success)
+      alert(res.data.message)
       localStorage.setItem("userLoggedIn", "yes");
       navigate("/dashboard");
     } catch (error) {
