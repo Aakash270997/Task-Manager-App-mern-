@@ -10,22 +10,22 @@ import EditTaskDiv from '../components/dashboard/EditTaskDiv';
 
 const Dashboard = () => {
   const [addTaskDiv, setAddTaskDiv] = useState("hidden");
-  const [editTasks, setEditTasks] = useState("hidden")
+  const [editTasks, setEditTasks] = useState("hidden");
+  const [selectedTask, setSelectedTask] = useState(null); // ✅ NEW STATE
   const [todoTasks, setTodoTasks] = useState([]);
   const [todoListData, settodoListData] = useState([]);
   const [progressListData, setProgressListData] = useState([]);
   const [complateListData, setComplateListData] = useState([]);
-  const [error, setError] = useState('');  // Optional: Handle errors
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchTodoTasks = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/todo/all", { withCredentials: true });
-        console.log(response.data.todos);
         setTodoTasks(response.data.todos);
       } catch (error) {
         console.log(error);
-        setError('Failed to fetch tasks'); // Optional: Set error message
+        setError('Failed to fetch tasks');
       }
     };
     fetchTodoTasks();
@@ -38,48 +38,63 @@ const Dashboard = () => {
     settodoListData(filterTodo);
     setProgressListData(filterProgress);
     setComplateListData(filterComplate);
-  }, []);
-
-  console.log("todoListData", todoListData);
+  }, [todoTasks]);
 
   return (
     <div className='w-full relative'>
       <div className="bg-white">
-        {/* <AlertData alertMsg={alertMsg} /> */}
         <Header setAddTaskDiv={setAddTaskDiv} />
       </div>
       <div className="px-12 mg-4 flex gap-12 bg-zinc-100 min-h[89vh] max-h-auto">
         <div className="w-1/3">
           <StickTitle title={"Todo"} />
           <div className="pt-2">
-            {todoListData.length > 0 ? <Todo task={todoListData} /> : <p>No tasks available</p>}
+            {todoListData.length > 0 ? (
+              <Todo
+                task={todoListData}
+                setEditTasks={setEditTasks}
+                setSelectedTask={setSelectedTask}
+              />
+            ) : <p>No tasks available</p>}
           </div>
         </div>
         <div className="w-1/3">
           <StickTitle title={"In Progress"} />
           <div className="pt-2">
-            {progressListData.length > 0 ? <InProgress task={progressListData} /> : <p>No tasks available</p>}
+            {progressListData.length > 0 ? (
+              <InProgress
+                task={progressListData}
+                setEditTasks={setEditTasks}
+                setSelectedTask={setSelectedTask}
+              />
+            ) : <p>No tasks available</p>}
           </div>
         </div>
         <div className="w-1/3">
           <StickTitle title={"Complate"} />
           <div className="pt-2">
-            {complateListData.length > 0 ? <Complate task={complateListData} /> : <p>No tasks available</p>}
+            {complateListData.length > 0 ? (
+              <Complate
+                task={complateListData}
+                setEditTasks={setEditTasks}
+                setSelectedTask={setSelectedTask}
+              />
+            ) : <p>No tasks available</p>}
           </div>
         </div>
       </div>
 
-      {/* Model */}
+      {/* Add Task Modal */}
       <div className={`w-full ${addTaskDiv} h-screen fixed top-0 left-0 bg-zinc-800 opacity-85`}></div>
       <div className={`w-full ${addTaskDiv} h-screen fixed top-0 left-0 flex items-center justify-center`}>
         <AddTask setAddTaskDiv={setAddTaskDiv} />
       </div>
-      {/* Edit tasks */}
+
+      {/* Edit Task Modal */}
       <div className={`w-full ${editTasks} h-screen fixed top-0 left-0 bg-zinc-800 opacity-85`}></div>
       <div className={`w-full ${editTasks} h-screen fixed top-0 left-0 flex items-center justify-center`}>
-        <EditTaskDiv setEditTasks={setEditTasks} />
+        <EditTaskDiv setEditTasks={setEditTasks} selectedTask={selectedTask} />
       </div>
-      {/* <Todos /> */}
     </div>
   );
 };

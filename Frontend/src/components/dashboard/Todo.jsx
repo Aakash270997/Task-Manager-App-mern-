@@ -1,15 +1,18 @@
 import React from 'react';
 import TaskCart from './TaskCart';
 
-const Todo = ({ task }) => {
-  // console.log("inside todo box ", task);
-
+const Todo = ({ task, setEditTasks, setSelectedTask }) => {
   return (
     <div className='flex flex-col gap-2'>
       {task && task.length > 0 ? (
-        task.map((item, i) => {
-          return <TaskCart key={i} item={item} />;
-        })
+        task.map((item, i) => (
+          <TaskCart
+            key={i}
+            item={item}
+            setEditTasks={setEditTasks}
+            setSelectedTask={setSelectedTask}
+          />
+        ))
       ) : (
         <p>No tasks available</p>
       )}
