@@ -11,7 +11,7 @@ import EditTaskDiv from '../components/dashboard/EditTaskDiv';
 const Dashboard = () => {
   const [addTaskDiv, setAddTaskDiv] = useState("hidden");
   const [editTasks, setEditTasks] = useState("hidden");
-  const [selectedTask, setSelectedTask] = useState(null); // ✅ NEW STATE
+  const [selectedTask, setSelectedTask] = useState(null);
   const [todoTasks, setTodoTasks] = useState([]);
   const [todoListData, settodoListData] = useState([]);
   const [progressListData, setProgressListData] = useState([]);
@@ -30,7 +30,7 @@ const Dashboard = () => {
       }
     };
     fetchTodoTasks();
-  }, []);
+  }, [todoTasks]);
 
   useEffect(() => {
     const filterTodo = todoTasks.filter((task) => task.taskStatus === "Todo");
@@ -46,7 +46,7 @@ const Dashboard = () => {
       <div className="bg-white">
         <Header setAddTaskDiv={setAddTaskDiv} />
       </div>
-      <div className="px-12 mg-4 flex gap-12 bg-zinc-100 min-h[89vh] max-h-auto">
+      <div className="px-12 mg-4 flex gap-12 bg-zinc-100 min-h-[100vh] max-h-auto">
         <div className="w-1/3">
           <StickTitle title={"Todo"} />
           <div className="pt-2">

@@ -2,6 +2,8 @@ import React from 'react';
 import TaskCart from './TaskCart';
 
 const Todo = ({ task, setEditTasks, setSelectedTask }) => {
+  // console.log(task);
+  
   return (
     <div className='flex flex-col gap-2'>
       {task && task.length > 0 ? (
