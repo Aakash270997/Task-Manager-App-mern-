@@ -1,9 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { showNotification, hideNotification } from '../redux/notificationSlice';
 
 const Login = () => {
-  
+  const dispatch = useDispatch();
   const navigate = useNavigate()
   const [loginUserInfo, setLoginUserInfo] = useState({
     email: "",
@@ -19,7 +21,14 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", loginUserInfo, {withCredentials: true} );
-      alert(res.data.message)
+      // alert(res.data.message)
+      dispatch(showNotification({
+        message: res.data.message,
+        subText: "Welcome back!",
+      }))
+      setTimeout(() => {
+        dispatch(hideNotification())
+      }, 3000);
       localStorage.setItem("userLoggedIn", "yes");
       navigate("/dashboard");
     } catch (error) {

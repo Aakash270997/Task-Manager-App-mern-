@@ -7,8 +7,9 @@ import Todo from '../components/dashboard/Todo';
 import Complate from '../components/dashboard/Complate';
 import axios from 'axios';
 import EditTaskDiv from '../components/dashboard/EditTaskDiv';
+import Notification from '../components/Notification';
 
-const Dashboard = () => {
+const Dashboard = ({setShowNotification, showNotification}) => {
   const [addTaskDiv, setAddTaskDiv] = useState("hidden");
   const [editTasks, setEditTasks] = useState("hidden");
   const [selectedTask, setSelectedTask] = useState(null);

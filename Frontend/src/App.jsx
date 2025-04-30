@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate} from "react-router-dom";
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Notification from './components/Notification';
 
 const App = () => {
   const navigate = useNavigate();
+  const [showNotification, setShowNotification] = useState(true);
 
   useEffect(()=>{
     if(localStorage.getItem("userLoggedIn")){
@@ -17,10 +19,11 @@ const App = () => {
 
   return (
     <>
+      <Notification />
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={<Dashboard showNotification={showNotification} setShowNotification={setShowNotification} />} />
       </Routes>
     </>
   )
