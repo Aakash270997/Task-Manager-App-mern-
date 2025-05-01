@@ -2,17 +2,26 @@ import React from 'react';
 import { IoLogOutOutline } from "react-icons/io5";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { hideNotification, showNotification } from '../../redux/notificationSlice';
+import { useDispatch } from 'react-redux';
+import { hideNotify } from '../../finction/function';
 
 const Header = ({setAddTaskDiv}) => {
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logout = async () => {
     try {
       const res = await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
-      alert(res.data.message);
+      // alert(res.data.message);
       localStorage.clear("userLoggedin");
-      navigate("/login")
+      navigate("/login");
+      dispatch(showNotification({
+        message: res.data.message,
+        subText: ""
+      }));
+      hideNotify(dispatch);
     } catch (error) {
       console.log(error)
     }

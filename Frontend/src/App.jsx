@@ -7,7 +7,6 @@ import Notification from './components/Notification';
 
 const App = () => {
   const navigate = useNavigate();
-  const [showNotification, setShowNotification] = useState(true);
 
   useEffect(()=>{
     if(localStorage.getItem("userLoggedIn")){
@@ -23,7 +22,7 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/dashboard' element={<Dashboard showNotification={showNotification} setShowNotification={setShowNotification} />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
     </>
   )

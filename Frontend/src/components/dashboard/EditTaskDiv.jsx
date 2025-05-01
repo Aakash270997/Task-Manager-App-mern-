@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { useDispatch } from 'react-redux';
+import { hideNotification, showNotification } from '../../redux/notificationSlice';
+import { hideNotify, modalClickEvent } from '../../finction/function';
 
 const EditTaskDiv = ({ setEditTasks, selectedTask }) => {
   const [tasksDetail, setTasksDetail] = useState({
@@ -9,6 +12,7 @@ const EditTaskDiv = ({ setEditTasks, selectedTask }) => {
     priority: "low",
     taskStatus: "Todo"
   });
+  const dispatch = useDispatch();
 
   const editTaskRef = useRef(null);
 
@@ -28,6 +32,11 @@ const EditTaskDiv = ({ setEditTasks, selectedTask }) => {
     try {
       const res = await axios.put(`http://localhost:5000/api/todo/update/${selectedTask._id}`, tasksDetail, { withCredentials: true });
       setEditTasks("hidden");
+      dispatch(showNotification({
+        message: res.data.message,
+        subTest: "",
+      }));
+      hideNotify(dispatch)
     } catch (error) {
       alert(error.response.data.error);
     }
@@ -45,17 +54,11 @@ const EditTaskDiv = ({ setEditTasks, selectedTask }) => {
   };
 
   useEffect(()=>{
-    const handleClickOutSide = (e) => {
-      if(editTaskRef.current && !editTaskRef.current.contains(e.target)){
-        setEditTasks("hidden");
-      }
-    };
 
-    document.addEventListener("mousedown", handleClickOutSide);
-    return ()=>{
-      document.removeEventListener("mousedown", handleClickOutSide);
-    }
+  modalClickEvent(editTaskRef, setEditTasks);
+
   },[setEditTasks]);
+
 
   return (
     <div ref={editTaskRef} className='bg-white rounded px-4 py-4 w-[40%] relative'>

@@ -24,7 +24,7 @@ exports.updateTodo = async (req, res) => {
   const { title, description, priority, taskStatus } = req.body;
   // console.log(id, title, description,  taskStatus);
   await Todo.findByIdAndUpdate(id, { title, description, priority, taskStatus });
-  res.json({ message: "Todo updated" });
+  res.json({ message: "Tasks updated" });
 };
 
 exports.deleteTodo = async (req, res) => {

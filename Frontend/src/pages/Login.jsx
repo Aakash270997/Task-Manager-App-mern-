@@ -6,7 +6,7 @@ import { showNotification, hideNotification } from '../redux/notificationSlice';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [loginUserInfo, setLoginUserInfo] = useState({
     email: "",
     password: "",

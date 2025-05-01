@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useDispatch } from 'react-redux';
+import { hideNotification, showNotification } from '../../redux/notificationSlice';
+import { hideNotify, modalClickEvent } from '../../finction/function';
 
 const AddTask = ({ setAddTaskDiv }) => {
   const [tasksDetail, setTasksDetail] = useState({
@@ -9,6 +12,7 @@ const AddTask = ({ setAddTaskDiv }) => {
     priority: "low",  // FIXED
     taskStatus: "Todo"
   });
+  const dispatch = useDispatch();
 
   const addTaskRef = useRef(null);
 
@@ -19,12 +23,17 @@ const AddTask = ({ setAddTaskDiv }) => {
 
   const addTask = async (e) => {
     e.preventDefault();
-    console.log("Sending Data:", tasksDetail);  // Debugging
+    console.log("Sending Data:", tasksDetail);
 
     try {
       const res = await axios.post("http://localhost:5000/api/todo/create", tasksDetail, { withCredentials: true });
       console.log("Response:", res.data);
       // alertMsg(res.data.message)
+      dispatch(showNotification({
+        message: res.data.message,
+        subText: "",
+      }))
+      hideNotify(dispatch)
       setTasksDetail({
         title:"",
         description: "",
@@ -39,16 +48,8 @@ const AddTask = ({ setAddTaskDiv }) => {
   };
 
   useEffect(()=>{
-    const handleClickOutSide = (e) => {
-      if(addTaskRef.current && !addTaskRef.current.contains(e.target)){
-        setAddTaskDiv("hidden");
-      }
-    };
-    document.addEventListener("mousedown",handleClickOutSide);
 
-    return ()=> {
-      document.removeEventListener("mousedown",handleClickOutSide)
-    }
+    modalClickEvent(addTaskRef, setAddTaskDiv)
   }, [setAddTaskDiv])
 
   return (

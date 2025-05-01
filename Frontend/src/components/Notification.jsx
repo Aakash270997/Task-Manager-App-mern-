@@ -4,14 +4,6 @@ import { hideNotification } from '../redux/notificationSlice';
 
 const Notification = () => {
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     onClose();
-  //   }, 3000); // auto close in 3 seconds
-
-  //   return () => clearTimeout(timer);
-  // }, [onClose]);
-
   const { show, message, subText } = useSelector(state => state.notification);
   const dispatch = useDispatch()
 
