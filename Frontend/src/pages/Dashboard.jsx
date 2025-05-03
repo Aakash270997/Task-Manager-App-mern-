@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Header from '../components/dashboard/Header';
 import AddTask from '../components/dashboard/AddTask';
 import StickTitle from '../components/dashboard/StickTitle';
-import InProgress from '../components/dashboard/InProgress';
-import Todo from '../components/dashboard/Todo';
-import Complate from '../components/dashboard/Complate';
-import axios from 'axios';
 import EditTaskDiv from '../components/dashboard/EditTaskDiv';
+import TaskList from '../components/dashboard/TaskList';
 
 const Dashboard = () => {
   const [addTaskDiv, setAddTaskDiv] = useState("hidden");
@@ -48,7 +46,7 @@ const Dashboard = () => {
           <StickTitle title={"Todo"} bgColor="bg-[#e5e5e5]" />
           <div className="pt-2">
             {todoListData.length > 0 ? (
-              <Todo
+              <TaskList
                 task={todoListData}
                 setEditTasks={setEditTasks}
                 setSelectedTask={setSelectedTask}
@@ -61,7 +59,7 @@ const Dashboard = () => {
           <StickTitle title={"In Progress"} bgColor="bg-[#0880ea]" />
           <div className="pt-2">
             {progressListData.length > 0 ? (
-              <InProgress
+              <TaskList
                 task={progressListData}
                 setEditTasks={setEditTasks}
                 setSelectedTask={setSelectedTask}
@@ -73,7 +71,7 @@ const Dashboard = () => {
           <StickTitle title={"Complate"} bgColor="bg-[#299764]" />
           <div className="pt-2">
             {complateListData.length > 0 ? (
-              <Complate
+              <TaskList
                 task={complateListData}
                 setEditTasks={setEditTasks}
                 setSelectedTask={setSelectedTask}

@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskCart from './TaskCart';
 
-const Todo = ({ task, setEditTasks, setSelectedTask }) => {
+const TaskList = ({ task, setEditTasks, setSelectedTask }) => {
   // console.log(task);
   
   return (
@@ -22,4 +22,4 @@ const Todo = ({ task, setEditTasks, setSelectedTask }) => {
   );
 };
 
-export default Todo;
+export default TaskList;
