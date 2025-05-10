@@ -28,9 +28,9 @@ const Dashboard = () => {
   }, [todoTasks]);
 
   useEffect(() => {
-    const filterTodo = todoTasks.filter((task) => task.taskStatus === "Todo");
-    const filterProgress = todoTasks.filter((task) => task.taskStatus === "InProgress");
-    const filterComplate = todoTasks.filter((task) => task.taskStatus === "Completed");
+    const filterTodo = todoTasks.filter(task => task.taskStatus === "Todo");
+    const filterProgress = todoTasks.filter(task => task.taskStatus === "InProgress");
+    const filterComplate = todoTasks.filter(task => task.taskStatus === "Completed");
     settodoListData(filterTodo);
     setProgressListData(filterProgress);
     setComplateListData(filterComplate);
